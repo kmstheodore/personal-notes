@@ -1,0 +1,32 @@
+<h1>Your notes</h1>
+<div id="notes" style="display:flex;">
+  <div id="incomplete-notes">
+    <h2>Incompleted</h2>
+    <% @notes.each do |note| %>
+      <% if note.complete == false %>
+        <div>
+          <%= note.title %><br>
+          <%= note.time %>
+          <%= form_with(model: note, local: true) do |form| %>
+            <div class="field">
+              <%= form.radio_button :complete, true %>
+              <%= form.label :complete, "Completed?" %>
+            </div>
+            <div class="actions">
+              <%= form.submit %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div id="complete-notes" style="margin-left: 100px">
+    <h2>Completed</h2>
+    <% @notes.each do |note| %>
+      <% if note.complete == true %>
+        <%= note.title%>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<%=link_to "Create Note", new_note_path%>
